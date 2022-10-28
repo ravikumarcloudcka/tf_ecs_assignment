@@ -14,7 +14,19 @@ resource "aws_codebuild_project" "svc1-build-project" {
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
     privileged_mode  = true
-
+    
+    environment_variable {
+      name  = "SVC1_REPO"
+      value = "${aws_ecr_repository.ECRRepository-svc2.repository_url}"
+    }
+    environment_variable {
+      name  = "SVC1_NAME"
+      value = "${aws_ecr_repository.ECRRepository-svc2.name}"
+    }
+    environment_variable {
+      name  = "SVC1_REPO_ID"
+      value = "${aws_ecr_repository.ECRRepository-svc2.registry_id}"
+    }
   }
 
   logs_config {
@@ -26,7 +38,6 @@ resource "aws_codebuild_project" "svc1-build-project" {
 
   source {
     type            = "CODEPIPELINE"
-    git_clone_depth = 1
     buildspec = "buildspec.yml"
   }
 

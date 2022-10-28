@@ -89,7 +89,7 @@ resource "aws_codepipeline" "CodePipelinePipeline2" {
                 category = "Source"
                 owner = "AWS"
                 configuration = {
-                    BranchName = "master"
+                    BranchName = "main"
                     ConnectionArn = "${aws_codestarconnections_connection.github_act.arn}"
                     FullRepositoryId = "ravikumarcloudcka/svc2-tf"
                     OutputArtifactFormat = "CODE_ZIP"
